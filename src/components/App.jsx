@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { ContactForm } from './ContactForm/ContactForm';
+import { ContactList } from './ContactList/ContactList';
+import { Filter } from './Filter/Filter';
 
 // import { PropTypes } from 'prop-types';
 // import { nanoid } from 'nanoid';
@@ -13,12 +15,28 @@ export class App extends Component {
       // { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    name: '',
-    number: '',
+    // name: '',
+    // number: '',
+  };
+
+  checkTheSameName = inputName => {
+    const normaliziedInputName = inputName.toLowerCase().trim();
+
+    console.log(normaliziedInputName);
+
+    return this.state.contacts.find(
+      ({ name }) => name.toLowerCase() === normaliziedInputName
+    );
   };
 
   onContactFormSubmit = ({ name, number, id }) => {
-    // console.log(name, number, id);
+    // const capitalName = `${name[0].toUpperCase()}${name.slice(1)}`;
+    // console.log(capitalName);
+
+    if (this.checkTheSameName(name)) {
+      alert(`Sorry, ${name} has already added!`);
+      return;
+    }
 
     this.setState(prevState => {
       return {
@@ -27,15 +45,54 @@ export class App extends Component {
     });
   };
 
+  onContactFilter = filterName => {
+    this.setState({
+      filter: filterName,
+    });
+  };
+
+  onContactDelete = contactToDelete => {
+    this.setState(prevState => {
+      return {
+        contacts: prevState.contacts.filter(({ id }) => {
+          return id !== contactToDelete;
+        }),
+      };
+    });
+  };
+
+  filterCurrentContacts = filterName => {
+    const { contacts } = this.state;
+    const normaliziedFilterName = filterName.toLowerCase().trim();
+
+    return contacts.filter(({ name }) =>
+      name.toLowerCase().includes(normaliziedFilterName)
+    );
+  };
+
   render() {
+    const { contacts, filter } = this.state;
+    // console.log(contacts);
+    // console.log(filter);
+
+    const selectedContacts = filter
+      ? this.filterCurrentContacts(filter)
+      : contacts;
+
     return (
       <div>
         <h1>Phonebook</h1>
         <ContactForm onFormSubmit={this.onContactFormSubmit} />
 
         <h2>Contacts</h2>
-        {/* <Filter ... />
-      <ContactList ... /> */}
+        <Filter
+          value={this.state.filter}
+          onFilterInput={this.onContactFilter}
+        />
+        <ContactList
+          contacts={selectedContacts}
+          onContactDelete={this.onContactDelete}
+        />
       </div>
     );
   }

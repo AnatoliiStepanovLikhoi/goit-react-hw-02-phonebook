@@ -16,7 +16,7 @@ export class ContactForm extends Component {
       id: nanoid(),
     });
 
-    // event.currentTarget.reset();
+    event.currentTarget.reset();
   };
 
   render() {
@@ -48,6 +48,6 @@ export class ContactForm extends Component {
   }
 }
 
-ContactForm.protoTypes = {
+ContactForm.propTypes = {
   onFormSubmit: PropTypes.func.isRequired,
 };
