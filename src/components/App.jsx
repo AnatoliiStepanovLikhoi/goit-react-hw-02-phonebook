@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
+
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 
 // import { PropTypes } from 'prop-types';
 // import { nanoid } from 'nanoid';
+import { capitalizeFirstLetters } from './Utils/capitalizeFirstLetters';
+
+import { Container, MainTitle, SecondaryTitle } from './App.styled';
 
 export class App extends Component {
   state = {
     contacts: [
-      // { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      // { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      // { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      // { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
     // name: '',
@@ -30,11 +34,10 @@ export class App extends Component {
   };
 
   onContactFormSubmit = ({ name, number, id }) => {
-    // const capitalName = `${name[0].toUpperCase()}${name.slice(1)}`;
-    // console.log(capitalName);
+    const capitalName = capitalizeFirstLetters(name);
 
     if (this.checkTheSameName(name)) {
-      alert(`Sorry, ${name} has already added!`);
+      alert(`Sorry, ${capitalName} has already added!`);
       return;
     }
 
@@ -80,20 +83,17 @@ export class App extends Component {
       : contacts;
 
     return (
-      <div>
-        <h1>Phonebook</h1>
+      <Container>
+        <MainTitle>Phonebook</MainTitle>
         <ContactForm onFormSubmit={this.onContactFormSubmit} />
 
-        <h2>Contacts</h2>
-        <Filter
-          value={this.state.filter}
-          onFilterInput={this.onContactFilter}
-        />
+        <SecondaryTitle>Contacts</SecondaryTitle>
+        <Filter onFilterInput={this.onContactFilter} />
         <ContactList
           contacts={selectedContacts}
           onContactDelete={this.onContactDelete}
         />
-      </div>
+      </Container>
     );
   }
 }

@@ -1,11 +1,17 @@
 import { PropTypes } from 'prop-types';
 
+import { Label, Input } from '../ContactForm/ContactForm.styled';
+
 export function Filter({ onFilterInput }) {
   return (
-    <label>
+    <Label>
       Filter contacts by name
-      <input onInput={event => onFilterInput(event.target.value)} />
-    </label>
+      <Input
+        onInput={event => onFilterInput(event.target.value)}
+        name="search"
+        placeholder="Search"
+      />
+    </Label>
   );
 }
 

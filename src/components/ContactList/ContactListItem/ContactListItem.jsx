@@ -1,4 +1,7 @@
 import { PropTypes } from 'prop-types';
+import { capitalizeFirstLetters } from '../../Utils/capitalizeFirstLetters';
+
+import { Icon, ListItem, ContactText } from './ContactListItem.styled';
 
 export function ContactListItem(props) {
   //   console.log(props.contactInfo.name);
@@ -8,19 +11,21 @@ export function ContactListItem(props) {
     onContactDelete,
   } = props;
 
-  const capitalName = `${name[0].toUpperCase()}${name.slice(1)}`;
-
+  // const capitalName = `${name[0].toUpperCase()}${name.slice(1)}`;
   //   console.log(onContactDelete);
 
+  const capitalName = capitalizeFirstLetters(name);
+
   return (
-    <li>
-      <p>
+    <ListItem>
+      <Icon />
+      <ContactText>
         {capitalName}: {number}
-      </p>
+      </ContactText>
       <button type="button" onClick={() => onContactDelete(id)}>
         Remove
       </button>
-    </li>
+    </ListItem>
   );
 }
 
