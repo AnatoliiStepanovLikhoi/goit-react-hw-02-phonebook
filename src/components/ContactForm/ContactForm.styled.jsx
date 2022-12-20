@@ -46,3 +46,28 @@ export const Input = styled.input`
     color: transparent;
   }
 `;
+
+export const AddContactButton = styled.button`
+  min-width: 80px;
+  height: 40px;
+
+  padding: 4px 16px;
+
+  color: ${p => p.theme.colors.black};
+  background-color: ${p => p.theme.colors.bgGrey};
+
+  font-size: ${p => p.theme.fontsSizes.m}px;
+  font-weight: ${p => p.theme.fontWeights.semiBold};
+
+  border: 2px solid ${p => p.theme.colors.accentShadow};
+  border-radius: ${p => p.theme.radii.semiRound};
+
+  cursor: pointer;
+  transition: background-color 250ms ease-out 0s, border-color 250ms ease-out 0s;
+
+  &:hover,
+  :focus {
+    background-color: ${p => p.theme.colors.accentShadow};
+    border: 2px solid transparent;
+  }
+`;

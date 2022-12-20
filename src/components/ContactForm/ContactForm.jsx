@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import { nanoid } from 'nanoid';
 
-import { Form, Label, Input } from './ContactForm.styled';
+import { Form, Label, Input, AddContactButton } from './ContactForm.styled';
 
 export class ContactForm extends Component {
   onSubmit = event => {
@@ -33,7 +33,7 @@ export class ContactForm extends Component {
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я-яЁёІіЇїЄє]*)*$"
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
-            autoFocus
+            // autoFocus
           />
         </Label>
         <Label>
@@ -47,7 +47,7 @@ export class ContactForm extends Component {
             required
           />
         </Label>
-        <button type="submit">Add contacts</button>
+        <AddContactButton type="submit">Add contacts</AddContactButton>
       </Form>
     );
   }
